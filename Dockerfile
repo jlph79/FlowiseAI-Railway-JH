@@ -2,27 +2,29 @@ FROM node:18-alpine
 
 USER root
 
-RUN apk add --no-cache git
-RUN apk add --no-cache python3 py3-pip make g++
-# needed for pdfjs-dist
-RUN apk add --no-cache build-base cairo-dev pango-dev
-
-# Install Chromium
-RUN apk add --no-cache chromium
+RUN apk add --no-cache git python3 py3-pip make g++ build-base cairo-dev pango-dev chromium
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-# You can install a specific version like: flowise@1.0.0
+# Install Flowise globally
 RUN npm install -g flowise
 
-WORKDIR /data
+# Create a directory for persistent data
+RUN mkdir -p /data/flowise
+
+# Set the working directory
+WORKDIR /data/flowise
 
 # Set environment variables
 ENV PORT=80
+ENV DATABASE_PATH=/data/flowise/database
+ENV APIKEY_PATH=/data/flowise/apikey
+ENV SECRETKEY_PATH=/data/flowise/secretkey
+ENV LOG_PATH=/data/flowise/logs
 
 # Expose the specified port
 EXPOSE ${PORT}
 
-# Start the application with a delay
-CMD /bin/sh -c "sleep 3; flowise start"
+# Start the application
+CMD ["flowise", "start"]
