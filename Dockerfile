@@ -18,10 +18,10 @@ WORKDIR /data/flowise
 
 # Set environment variables
 ENV PORT=80
-ENV DATABASE_PATH=/data/flowise/database
-ENV APIKEY_PATH=/data/flowise/apikey
-ENV SECRETKEY_PATH=/data/flowise/secretkey
-ENV LOG_PATH=/data/flowise/logs
+ENV DATABASE_PATH=/root/.flowise
+ENV APIKEY_PATH=/root/.flowise
+ENV SECRETKEY_PATH=/root/.flowise
+ENV LOG_PATH=/root/.flowise/logs
 
 # Expose the specified port
 EXPOSE ${PORT}
