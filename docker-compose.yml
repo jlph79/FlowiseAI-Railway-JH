@@ -24,7 +24,7 @@ services:
     ports:
       - '${PORT}:${PORT}'
     volumes:
-      - flowise_data:/data/flowise
+      - ~/.flowise:/root/.flowise
     command: flowise start
 
 volumes:
